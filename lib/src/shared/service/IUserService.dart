@@ -1,4 +1,5 @@
-import 'package:keleya_app/src/models/UserModel.dart';
+
+import 'package:keleya_app/src/shared/models/UserModel.dart';
 
 abstract class IUserService {
   Future<String?> createUser(UserModel user);

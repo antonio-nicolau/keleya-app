@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:keleya_app/src/controllers/validate.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:keleya_app/src/features/add_name/add_name_page.dart';
 import 'package:keleya_app/src/features/signup/widgets/already_have_account.dart';
 import 'package:keleya_app/src/features/signup/widgets/custom_checkbox.dart';
-import 'package:keleya_app/src/models/UserModel.dart';
+import 'package:keleya_app/src/shared/controllers/validate.dart';
+import 'package:keleya_app/src/shared/models/UserModel.dart';
 import 'package:keleya_app/src/shared/utils/page_navigator.dart';
 import 'package:keleya_app/src/shared/widgets/custom_button.dart';
 import 'package:keleya_app/src/shared/widgets/custom_input.dart';
@@ -44,7 +45,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   height: MediaQuery.of(context).size.height * 0.2,
                   child: title(
                     context,
-                    'Welcome to Keleya Mama',
+                    AppLocalizations.of(context)!.signupTitle,
                     width: MediaQuery.of(context).size.width * 0.7,
                   ),
                 ),
@@ -63,7 +64,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     key: _formState,
                     child: Column(
                       children: [
-                        subTitle(context, 'Create an account'),
+                        subTitle(context,
+                            AppLocalizations.of(context)!.signupSubtitle),
                         CustomInput(
                           controller: _emailController,
                           labelText: 'Your Email',
@@ -82,19 +84,22 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         customButton(
                           context,
-                          label: 'Create account',
+                          label: AppLocalizations.of(context)!.btnSignup,
                           spaceBetwen: 15.0,
                           callBack: _callBack,
                         ),
-                        customCheckBox(context, 'privacy policy', acceptPolicy,
-                            (value) {
+                        customCheckBox(
+                            context,
+                            AppLocalizations.of(context)!.checkboxPrivacyPolicy,
+                            acceptPolicy, (value) {
                           setState(() {
                             acceptPolicy = value;
                           });
                         }),
                         customCheckBox(
                             context,
-                            'terms & conditions & keleya\'s advice',
+                            AppLocalizations.of(context)!
+                                .checkboxTermsCondition,
                             acceptTerms, (value) {
                           setState(() {
                             acceptTerms = value;
@@ -119,20 +124,23 @@ class _SignUpPageState extends State<SignUpPage> {
       final password = _passwordController.text.trim();
       final _confirmPassword = _confirmPasswordController.text.trim();
 
-      final passwordState =
-          Validate.isValidPasswords(password, _confirmPassword);
+      final passwordState = Validate.isValidPasswords(
+        context,
+        password,
+        _confirmPassword,
+      );
+
       if (passwordState == 'ok') {
-        if(didAcceptTerms())
-       {
-         final user = UserModel(
-           email: email,
-           password: password,
-           acceptPrivatePolicy: acceptPolicy,
-           acceptTermConditions: acceptTerms,
-         );
-         nextPage(context, AddNamePage(), params: user);
-       }else
-         showSnackBar(context, 'You must accept our terms to keep on');
+        if (didAcceptTerms()) {
+          final user = UserModel(
+            email: email,
+            password: password,
+            acceptPrivatePolicy: acceptPolicy,
+            acceptTermConditions: acceptTerms,
+          );
+          nextPage(context, AddNamePage(), params: user);
+        } else
+          showSnackBar(context, AppLocalizations.of(context)!.errorAcceptTerms);
       } else
         showSnackBar(context, passwordState);
     }

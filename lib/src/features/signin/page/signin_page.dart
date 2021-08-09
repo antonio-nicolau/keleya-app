@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:keleya_app/src/features/profile/profile_page.dart';
-import 'package:keleya_app/src/repository/UserRepository.dart';
-import 'package:keleya_app/src/service/UserService.dart';
+import 'package:keleya_app/src/features/signin/widget/forgot_password.dart';
+import 'package:keleya_app/src/shared/repository/UserRepository.dart';
+import 'package:keleya_app/src/shared/service/UserService.dart';
 import 'package:keleya_app/src/shared/utils/page_navigator.dart';
 import 'package:keleya_app/src/shared/widgets/custom_button.dart';
 import 'package:keleya_app/src/shared/widgets/custom_input.dart';
 import 'package:keleya_app/src/shared/widgets/custom_snackbar.dart';
 import 'package:keleya_app/src/shared/widgets/subTitle.dart';
 import 'package:keleya_app/src/shared/widgets/title.dart';
-import '../widget/forgot_password.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignInPage extends StatefulWidget {
   SignInPage({Key? key}) : super(key: key);
@@ -44,7 +45,7 @@ class _SignInPageState extends State<SignInPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                title(context, 'Great to have you back!'),
+                title(context, AppLocalizations.of(context)!.signinTitle),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -62,7 +63,7 @@ class _SignInPageState extends State<SignInPage> {
                       children: [
                         subTitle(
                           context,
-                          'Sign in using Keleya account info',
+                          AppLocalizations.of(context)!.signinSubtitle,
                           width: MediaQuery.of(context).size.width * 0.6,
                         ),
                         CustomInput(
@@ -79,7 +80,7 @@ class _SignInPageState extends State<SignInPage> {
                         SizedBox(height: 20),
                         customButton(
                           context,
-                          label: 'Sign in',
+                          label: AppLocalizations.of(context)!.btnSignin,
                           callBack: _callBack,
                         ),
                         SizedBox(height: 15),
@@ -97,7 +98,8 @@ class _SignInPageState extends State<SignInPage> {
 
   Future<void> _callBack() async {
     if (_formState.currentState?.validate() == true) {
-      showSnackBar(context, 'Loading...', duration: Duration(seconds: 1));
+      showSnackBar(context, AppLocalizations.of(context)!.loading,
+          duration: Duration(seconds: 1));
       final email = _emailController.text.trim();
       final password = _passwordController.text.trim();
 
@@ -105,7 +107,8 @@ class _SignInPageState extends State<SignInPage> {
 
       if (response == 'sucess') {
         Navigator.pop(context);
-        nextPage(context, ProfilePage(), params: 'Welcome, log in sucess');
+        nextPage(context, ProfilePage(),
+            params: AppLocalizations.of(context)!.loginSucess);
       } else
         showSnackBar(context, response);
     }

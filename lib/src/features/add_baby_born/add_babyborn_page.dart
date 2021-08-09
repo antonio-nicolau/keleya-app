@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:keleya_app/src/features/congratulation/congratulation_page.dart';
-import 'package:keleya_app/src/models/UserModel.dart';
-import 'package:keleya_app/src/repository/UserRepository.dart';
-import 'package:keleya_app/src/service/UserService.dart';
+import 'package:keleya_app/src/shared/models/UserModel.dart';
+import 'package:keleya_app/src/shared/repository/UserRepository.dart';
+import 'package:keleya_app/src/shared/service/UserService.dart';
 import 'package:keleya_app/src/shared/utils/page_navigator.dart';
 import 'package:keleya_app/src/shared/widgets/custom_button.dart';
 import 'package:keleya_app/src/shared/widgets/custom_snackbar.dart';
 import 'package:keleya_app/src/shared/widgets/subTitle.dart';
 import 'package:keleya_app/src/shared/widgets/title.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'widget/show_datetext_widget.dart';
 
 class AddBabyBornPage extends StatefulWidget {
@@ -49,7 +49,7 @@ class _AddBabyBornPageState extends State<AddBabyBornPage> {
         child: customButton(
           context,
           spaceBetwen: 0.0,
-          label: 'Next question',
+          label: AppLocalizations.of(context)!.nextQuestion,
           callBack: _callBack,
         ),
       ),
@@ -62,13 +62,13 @@ class _AddBabyBornPageState extends State<AddBabyBornPage> {
               SizedBox(height: 30),
               title(
                 context,
-                'When was your baby born?',
+                AppLocalizations.of(context)!.addBabybirthTitle,
                 width: MediaQuery.of(context).size.width * 0.9,
                 textColor: Theme.of(context).shadowColor,
               ),
               subTitle(
                 context,
-                'This well help us give you relevant tips to care yourself & your baby',
+                AppLocalizations.of(context)!.addBabybirthSubtitle,
                 width: MediaQuery.of(context).size.width * 0.95,
                 textColor: Theme.of(context).shadowColor.withOpacity(0.6),
                 textSize: 18.0,
@@ -91,11 +91,12 @@ class _AddBabyBornPageState extends State<AddBabyBornPage> {
     );
   }
 
-  Future<void> _callBack()async {
+  Future<void> _callBack() async {
     user.babyBirthDate = _selectedDate;
-    user.onboardingDone=true;
+    user.onboardingDone = true;
 
-    showSnackBar(context,'Loading...', duration: Duration(seconds: 1));
+    showSnackBar(context, AppLocalizations.of(context)!.loading,
+        duration: Duration(seconds: 1));
     final response = await _service.createUser(user);
 
     if (response == 'sucess') {
@@ -104,7 +105,7 @@ class _AddBabyBornPageState extends State<AddBabyBornPage> {
       Navigator.pop(context);
       nextPage(context, CongratulationPage());
     } else
-      showSnackBar(context,response);
+      showSnackBar(context, response);
   }
 
   Future<void> _chooseDate(context) async {

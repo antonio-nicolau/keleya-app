@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:keleya_app/src/controllers/localStorage.dart';
 import 'package:keleya_app/src/features/profile/profile_page.dart';
 import 'package:keleya_app/src/features/signin/page/signin_page.dart';
 import 'package:keleya_app/src/features/signup/pages/signup_page.dart';
+import 'package:keleya_app/src/shared/controllers/localStorage.dart';
 import 'package:keleya_app/src/shared/utils/page_navigator.dart';
 import 'package:keleya_app/src/shared/widgets/custom_button.dart';
 import 'package:keleya_app/src/shared/widgets/title.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          title(context, 'Are you already a Keleya user?'),
+          title(context, AppLocalizations.of(context)!.homeTitle),
           Flexible(
             child: Container(
               width: MediaQuery.of(context).size.width,
@@ -40,11 +41,11 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   customButton(context,
-                      label: 'Yes, log in with my Keleya details',
+                      label: AppLocalizations.of(context)!.homeBtn1,
                       callBack: _goToLogin),
                   customButton(
                     context,
-                    label: 'No, create new account',
+                    label: AppLocalizations.of(context)!.homeBtn2,
                     textColor: Theme.of(context).primaryColor,
                     background: Theme.of(context).secondaryHeaderColor,
                     callBack: () => nextPage(context, SignUpPage()),
@@ -58,12 +59,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
-
-  Future<void>_goToLogin() async{
+  Future<void> _goToLogin() async {
     final token = await LocalStorage().getLocalToken();
 
-    if(token?.isNotEmpty == true)
+    if (token?.isNotEmpty == true)
       nextPage(context, ProfilePage());
     else
       nextPage(context, SignInPage());

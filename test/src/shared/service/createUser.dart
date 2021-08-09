@@ -1,7 +1,7 @@
+import 'package:keleya_app/src/shared/models/UserModel.dart';
+import 'package:keleya_app/src/shared/repository/UserRepository.dart';
+import 'package:keleya_app/src/shared/service/UserService.dart';
 import 'package:test/test.dart';
-import 'package:keleya_app/src/models/UserModel.dart';
-import 'package:keleya_app/src/repository/UserRepository.dart';
-import 'package:keleya_app/src/service/UserService.dart';
 
 main() {
   UserService? userService;

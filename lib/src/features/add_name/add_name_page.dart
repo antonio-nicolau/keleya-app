@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:keleya_app/src/features/add_baby_born/add_babyborn_page.dart';
-import 'package:keleya_app/src/models/UserModel.dart';
+import 'package:keleya_app/src/shared/models/UserModel.dart';
 import 'package:keleya_app/src/shared/utils/page_navigator.dart';
 import 'package:keleya_app/src/shared/widgets/custom_button.dart';
 import 'package:keleya_app/src/shared/widgets/custom_input.dart';
 import 'package:keleya_app/src/shared/widgets/title.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddNamePage extends StatelessWidget {
   final _nameController = TextEditingController();
@@ -15,9 +16,9 @@ class AddNamePage extends StatelessWidget {
     UserModel user = ModalRoute.of(context)!.settings.arguments as UserModel;
 
     _callBack() {
-      if(_formState.currentState?.validate()==true) {
+      if (_formState.currentState?.validate() == true) {
         user.name = _nameController.text.trim();
-        nextPage(context, AddBabyBornPage(),params: user);
+        nextPage(context, AddBabyBornPage(), params: user);
       }
     }
 
@@ -29,13 +30,13 @@ class AddNamePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height-160,
+          height: MediaQuery.of(context).size.height - 160,
           child: Column(
             children: <Widget>[
               SizedBox(height: 30),
               title(
                 context,
-                'What should we call you?',
+                AppLocalizations.of(context)!.addNameTitle,
                 width: MediaQuery.of(context).size.width * 0.9,
                 textColor: Theme.of(context).shadowColor,
               ),
@@ -55,7 +56,7 @@ class AddNamePage extends StatelessWidget {
                         ),
                         customButton(
                           context,
-                          label: 'Next question',
+                          label: AppLocalizations.of(context)!.nextQuestion,
                           callBack: _callBack,
                         ),
                       ],

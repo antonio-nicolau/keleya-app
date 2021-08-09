@@ -1,5 +1,5 @@
-import 'package:keleya_app/src/models/UserModel.dart';
 import 'package:http/http.dart' as http;
+import 'package:keleya_app/src/shared/models/UserModel.dart';
 import 'IUserRepository.dart';
 import 'endpoints.dart';
 

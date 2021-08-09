@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:keleya_app/src/shared/widgets/custom_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:keleya_app/src/shared/widgets/title.dart';
 
 class CongratulationPage extends StatefulWidget {
@@ -22,7 +21,7 @@ class _CongratulationPageState extends State<CongratulationPage> {
               padding: EdgeInsets.fromLTRB(15, 70, 15, 0),
               child: title(
                 context,
-                'Congratulations on the new arrival',
+                AppLocalizations.of(context)!.congratulationTitle,
                 width: MediaQuery.of(context).size.width,
                 textColor: Theme.of(context).shadowColor,
               ),

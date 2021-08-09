@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:keleya_app/src/controllers/validate.dart';
+import 'package:keleya_app/src/shared/controllers/validate.dart';
 
 class CustomInput extends StatefulWidget {
   final String? labelText;
